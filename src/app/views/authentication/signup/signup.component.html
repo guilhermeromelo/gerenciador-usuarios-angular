@@ -1,0 +1,102 @@
+<div class="auth-wrapper d-flex no-block justify-content-center align-items-center"
+  style="background:url(assets/images/background/login-register.jpg) no-repeat center center;">
+  <div class="auth-box m-3 m-md-0" style="width: 650px; max-width: 650px;">
+    <div>
+      <div class="logo">
+        <span class="db"><img src="assets/images/mv-logo.jpg" style="height: 60px;" alt="logo" /></span>
+        <h5 class="font-medium m-b-20">Cadastre-se</h5>
+      </div>
+      <!-- Form -->
+      <div class="row">
+        <div class="col-12">
+          <form class="form-horizontal m-t-20" [formGroup]="clientForm">
+            <div class="form-group row ">
+              <div class="col-6">
+                <label>Nome</label>
+                <input class="form-control" type="text" formControlName="nome">
+                <small class="form-text text-danger"
+                  *ngIf="!clientForm.get('nome')?.valid && (clientForm.get('nome')?.dirty || clientForm.get('nome')?.touched)">
+                  Campo Obrigatório!
+                </small>
+              </div>
+              <div class="col-6">
+                <label>Email</label>
+                <input class="form-control" type="text" formControlName="email">
+                <small class="form-text text-danger"
+                *ngIf="!clientForm.get('email')?.valid && (clientForm.get('email')?.dirty || clientForm.get('email')?.touched)">
+                  Campo Obrigatório!
+                </small>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-4">
+                <label>Login</label>
+                <input class="form-control" type="text" formControlName="login">
+                <small class="form-text text-danger"
+                *ngIf="!clientForm.get('login')?.valid && (clientForm.get('login')?.dirty || clientForm.get('sobrenome')?.touched)">
+                  Campo Obrigatório!
+                </small>
+              </div>
+              <div class="col-4">
+                <label>Senha</label>
+                <input class="form-control" type="password" formControlName="senha" (ngModelChange)="invalidPasswordError = false">
+                <small class="form-text text-danger"
+                *ngIf="!clientForm.get('senha')?.valid && (clientForm.get('senha')?.dirty || clientForm.get('senha')?.touched)">
+                  Campo Obrigatório!
+                </small>
+                <small class="form-text text-danger"
+                *ngIf="invalidPasswordError">
+                  A senha e confirmação da senha devem ser iguais!
+                </small>
+              </div>
+              <div class="col-4">
+                <label>Confirmar Senha</label>
+                <input class="form-control" type="password" formControlName="confirmarSenha" (ngModelChange)="invalidPasswordError = false">
+                <small class="form-text text-danger"
+                *ngIf="!clientForm.get('confirmarSenha')?.valid && (clientForm.get('confirmarSenha')?.dirty ||
+                  clientForm.get('confirmarSenha')?.touched)">Campo Obrigatório!
+                </small>
+                <small class="form-text text-danger"
+                *ngIf="invalidPasswordError">
+                  A senha e confirmação da senha devem ser iguais!
+                </small>
+              </div>
+            </div>
+
+            <ngb-alert role="alert" class="alert show customize-alert fs-5 alert-primary fade" [dismissible]="false"
+            > A senha deve possuir de 5 a 12 caracteres e conter ao menos uma letra e um caractere especial.
+            </ngb-alert>
+
+            <span class="form-text text-danger"
+              *ngIf="errorMessage">
+                {{errorMessage}}
+            </span>
+          </form>
+
+          <div class="form-group row">
+            <div class="col-md-12 ">
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="customCheck1" [(ngModel)]="termsAccepted">
+                <label class="custom-control-label" for="customCheck1">Li e concordo com os <a
+                    href="javascript:void(0)">Termos de Uso</a></label>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group text-center ">
+            <div class="col-xs-12 p-b-20 ">
+              <button class="btn btn-block btn-lg btn-info" (click)="signUp()">Cadastrar-se</button>
+            </div>
+          </div>
+
+          <div class="form-group m-b-0 m-t-10 ">
+            <div class="col-sm-12 text-center ">
+              Já possui uma conta? <a href="/login" class="text-info m-l-5 "><b>Entrar</b></a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

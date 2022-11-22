@@ -1,0 +1,156 @@
+<div
+	class="card-body"
+	style="
+		background-color: white;
+		height: 450px;
+		width: 600px;
+		border-radius: 4px;
+	"
+>
+  <div class="row">
+    <button
+      class="btn btn-lg btn-danger text-white ml-auto"
+      style="width: 60px; font-weight: bold"
+            (click)="goToLoginPage()"
+    >
+      <i class="fas fa-power-off"></i>
+    </button>
+  </div>
+  <div class="row mt-3">
+    <h2 class="mr-auto ml-auto">Gerenciamento de usuários MV</h2>
+  </div>
+
+  <div class="row mt-4">
+    <h3 style="color: #018d70; padding-left: 5px;">Nome: </h3>
+    <h3 style="padding-left: 15px;">{{userData.nome}}</h3>
+  </div>
+
+  <div class="row mt-1">
+    <h3 style="color: #018d70; padding-left: 5px;">Login: </h3>
+    <h3 style="padding-left: 15px;">{{userData.login}}</h3>
+  </div>
+
+  <div class="row mt-1">
+    <h3 style="color: #018d70; padding-left: 5px;">Email: </h3>
+    <h3 style="padding-left: 15px;">{{userData.email}}</h3>
+  </div>
+
+  <div class="row mt-3">
+    <div class="col-md-6 text-right">
+      <button
+        class="btn btn-lg btn-warning text-white"
+        style="width: 230px; font-weight: bold"
+        (click)="openModal(UpdateEmail)"
+      >
+        <i class="fas fa-edit"></i>
+        Editar Dados
+      </button>
+    </div>
+    <div class="col-md-6 text-left">
+      <button
+        class="btn btn-lg btn-danger text-white"
+        style="width: 230px; font-weight: bold"
+        (click)="openModal(DeleteAlert)"
+      >
+        <i class="fas fa-trash"></i>
+        Excluir Conta
+      </button>
+    </div>
+  </div>
+
+  <div class="row mt-3">
+    <img
+      class="mr-auto ml-auto"
+      src="../../../assets/images/mv-logo.jpg"
+      alt=""
+      height="60px"
+      width="auto"
+    />
+  </div>
+</div>
+
+
+<ng-template #DeleteAlert let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title" id="deleteAlert">Alerta de Confirmação</h5>
+
+    <button
+      type="button"
+      class="close"
+      (click)="closeBtnClick()"
+      aria-label="Close"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+      <div style="text-align: center;">
+          <span style="font-size: 1.5rem; font-weight: bold;">Tem certeza que deseja</span>
+          <span style="font-size: 1.5rem; font-weight: bold;" class="text-danger"> excluir </span>
+          <span style="font-size: 1.5rem; font-weight: bold;">sua conta e todos os seus dados ?</span>
+      </div>
+
+      <div class="row mt-4">
+        <button
+          type="button"
+          class="btn btn-secondary mr-2"
+          (click)="closeBtnClick()"
+          style="margin-left: auto"
+        >
+          Cancelar
+        </button>
+
+        <button type="button" class="btn btn-danger" style="margin-right: auto" (click) = confirmDelete()>
+          <i class="fas fa-trash"></i>Confirmar
+        </button>
+      </div>
+
+      <div class="row mt-2">
+        <small class="text-danger ml-auto mr-auto" 
+        style="font-size: 14px; font-weight: bold;">Esta ação não poderá ser desfeita!</small>
+      </div>
+  </div>
+</ng-template>
+
+<ng-template #UpdateEmail let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title" id="deleteAlert">Editar Email</h5>
+
+    <button
+      type="button"
+      class="close"
+      (click)="closeBtnClick()"
+      aria-label="Close"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+      <div style="text-align: center;">
+          <h3>Digite o novo email do usuário:</h3>
+      </div>
+      <div class="row mt-4">
+        <div class="col-md-10" style="margin-left: auto; margin-right: auto">
+          <label>Email</label>
+          <input type="text" class="form-control" [(ngModel)]="newEmail"/>
+        </div>
+      </div>
+
+      <div class="row mt-4">
+        <button
+          type="button"
+          class="btn btn-secondary mr-2"
+          (click)="closeBtnClick()"
+          style="margin-left: auto"
+        >
+          Cancelar
+        </button>
+
+        <button type="button" class="btn btn-warning" style="margin-right: auto" (click) = saveNewEmail()>
+          Salvar
+        </button>
+      </div>
+  </div>
+</ng-template>
