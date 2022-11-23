@@ -15,3 +15,7 @@ Tela Login - Realiza login no Authorization Server e utilizar o ResourceAccount 
 Tela Cadastrar-se - Realizar o cadastro do novo usuário através do ResourceAccount.
 
 Tela Conta do Usuário - Mostra as informações do usuário e permite o mesmo fazer logout, editar o email ou deletar a conta através do ResourceAccount.
+
+## Dúvidas
+
+- Entre em contato para que sejam esclarecidas.
