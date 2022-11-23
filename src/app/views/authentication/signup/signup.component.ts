@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AppService } from 'src/app/app-service';
 import { ToastrService } from 'ngx-toastr';
-import { ApiUrl } from 'src/app/constants';
+import { ResourceAccountAPI } from 'src/app/constants';
 
 @Component({
   selector: 'app-signup',
@@ -33,13 +33,13 @@ export class SignupComponent {
       let requestBody = JSON.parse(JSON.stringify(this.clientForm.value));
       delete requestBody.confirmarSenha;
       try{
-        let response = await this.service.postRequest(ApiUrl + '/user/new', requestBody);
+        let response = await this.service.postRequest(ResourceAccountAPI + '/public/user/new', requestBody);
         this.toastr.success('Usuário cadastrado com sucesso!');
         console.log(response)
         this.router.navigateByUrl(`/`);
       } catch (err:any){
+        console.log(err)
         this.errorMessage = err.error.message;
-        console.log(this.errorMessage)
         this.toastr.error('Ocorreu um erro ao salvar o usuário!');
       }
     }

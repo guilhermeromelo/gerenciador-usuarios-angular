@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import JwtAuth from './authentication/jwt-storage/jwt-storage';
 
 @Injectable()
 export class AppService {
@@ -7,9 +8,9 @@ export class AppService {
 
     }
 
-    async postRequest(url: any, body: any) {
+    async postRequest(url: any, body: any, config?:any) {
         return new Promise((resolve, reject) => {
-            this.http.post(url, body).subscribe(res => {               
+            this.http.post(url, body, config).subscribe(res => {               
                 resolve(res);
             }, err => {
                 reject(err);
@@ -17,9 +18,9 @@ export class AppService {
         })
     }
 
-    public async getRequest(url: any) {
+    public async getRequest(url: any, config?:any) {
         return new Promise((resolve, reject) => {
-            this.http.get(url).subscribe(res => {               
+            this.http.get(url,config).subscribe(res => {               
                 resolve(res);
             }, err => {
                 reject(err);
@@ -27,9 +28,9 @@ export class AppService {
         })
     }
 
-    async putRequest(url: any, body: any) {
+    async putRequest(url: any, body: any, config?: any) {
         return new Promise((resolve, reject) => {
-            this.http.put(url, body).subscribe(res => {               
+            this.http.put(url, body,config).subscribe(res => {               
                 resolve(res);
             }, err => {
                 reject(err);
@@ -37,9 +38,9 @@ export class AppService {
         })
     }
 
-    async deleteRequest(url: any, body: any) {
+    async deleteRequest(url: any, config?: any) {
         return new Promise((resolve, reject) => {
-            this.http.delete(url, body).subscribe(res => {               
+            this.http.delete(url,JwtAuth.getAuthorizationConfig()).subscribe(res => {               
                 resolve(res);
             }, err => {
                 reject(err);

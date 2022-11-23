@@ -3,7 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { AppService } from 'src/app/app-service';
-import { ApiUrl } from 'src/app/constants';
+import JwtAuth from 'src/app/authentication/jwt-storage/jwt-storage';
+import { ResourceAccountAPI } from 'src/app/constants';
 import { IUser } from 'src/app/interfaces/IUser.interface';
 
 @Component({
@@ -34,7 +35,8 @@ export class AccountComponent {
 
   async confirmDelete(){
     try{
-      let response:any = await this.httpService.deleteRequest(ApiUrl + `/user/delete/${this.userData.id}`,{});
+      let response:any = await this.httpService
+      .deleteRequest(ResourceAccountAPI + `/private/user/delete/${this.userData.id}`,JwtAuth.getAuthorizationConfig());
       this.routerService.navigateByUrl('/login');
       this.toastr.success(response.message);
     } catch(err:any){
@@ -51,12 +53,14 @@ export class AccountComponent {
   
   async saveNewEmail(){
     if(this.newEmail!= "" && this.newEmail.includes("@")){
+
       let requestBody = {
         id: this.userData.id,
         email: this.newEmail
       }
       try{
-        let response:any = await this.httpService.putRequest(ApiUrl + `/user/update-email`,requestBody);
+        let response:any = await this.httpService
+        .putRequest(ResourceAccountAPI + `/private/user/update-email`,requestBody,JwtAuth.getAuthorizationConfig());
         this.userData = response.data;
         this.toastr.success(response.message);
       } catch(err:any){
@@ -75,6 +79,7 @@ export class AccountComponent {
   }
 
   openModal(targetModal: any) {
+    this.newEmail = "";
     this.modalService.open(targetModal, {
       centered: true,
       backdrop: 'static',
@@ -86,6 +91,7 @@ export class AccountComponent {
   }
 
   goToLoginPage(){
+    JwtAuth.logout();
     this.routerService.navigateByUrl('/login');
   }
 }
